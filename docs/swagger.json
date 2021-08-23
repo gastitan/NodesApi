@@ -1,0 +1,205 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/nodes": {
+            "get": {
+                "description": "List all existing nodes",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "List all existing nodes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Node"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a node",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create a node",
+                "parameters": [
+                    {
+                        "description": "Node to create",
+                        "name": "node",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Node"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Node"
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes/nearest": {
+            "get": {
+                "description": "Get the nearest node",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get the nearest node from a param Location",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "description": "Latitude",
+                        "name": "lat",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Longitud",
+                        "name": "lng",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Node"
+                        }
+                    }
+                }
+            }
+        },
+        "/nodes/{id}": {
+            "get": {
+                "description": "Get existing node by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get existing node by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Node ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Node"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update existing node by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update existing node by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Node ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Node"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Location": {
+            "type": "object",
+            "required": [
+                "lat",
+                "lng"
+            ],
+            "properties": {
+                "lat": {
+                    "type": "number",
+                    "example": 34
+                },
+                "lng": {
+                    "type": "number",
+                    "example": -25
+                }
+            }
+        },
+        "model.Node": {
+            "type": "object",
+            "required": [
+                "address",
+                "id",
+                "location",
+                "nodeType"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "Balcarce 50"
+                },
+                "businessHour": {
+                    "type": "string",
+                    "example": "8-18"
+                },
+                "capacity": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "location": {
+                    "$ref": "#/definitions/model.Location"
+                },
+                "nodeType": {
+                    "type": "string",
+                    "example": "Store"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,137 @@
+definitions:
+  model.Location:
+    properties:
+      lat:
+        example: 34
+        type: number
+      lng:
+        example: -25
+        type: number
+    required:
+    - lat
+    - lng
+    type: object
+  model.Node:
+    properties:
+      address:
+        example: Balcarce 50
+        type: string
+      businessHour:
+        example: 8-18
+        type: string
+      capacity:
+        example: 100
+        type: integer
+      id:
+        example: 1
+        type: integer
+      location:
+        $ref: '#/definitions/model.Location'
+      nodeType:
+        example: Store
+        type: string
+    required:
+    - address
+    - id
+    - location
+    - nodeType
+    type: object
+info:
+  contact: {}
+paths:
+  /nodes:
+    get:
+      consumes:
+      - application/json
+      description: List all existing nodes
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Node'
+            type: array
+      summary: List all existing nodes
+    post:
+      consumes:
+      - application/json
+      description: Create a node
+      parameters:
+      - description: Node to create
+        in: body
+        name: node
+        required: true
+        schema:
+          $ref: '#/definitions/model.Node'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Node'
+      summary: Create a node
+  /nodes/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get existing node by id
+      parameters:
+      - description: Node ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Node'
+      summary: Get existing node by id
+    put:
+      consumes:
+      - application/json
+      description: Update existing node by id
+      parameters:
+      - description: Node ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Node'
+      summary: Update existing node by id
+  /nodes/nearest:
+    get:
+      consumes:
+      - application/json
+      description: Get the nearest node
+      parameters:
+      - description: Latitude
+        in: query
+        name: lat
+        required: true
+        type: number
+      - description: Longitud
+        in: query
+        name: lng
+        required: true
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Node'
+      summary: Get the nearest node from a param Location
+swagger: "2.0"

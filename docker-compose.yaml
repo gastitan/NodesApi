@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  api:
+    container_name: 'nodes-api'
+    build: './'
+    ports:
+      - '8080:8080'
+    volumes:
+      - './:/app'
+    depends_on:
+      - 'mongo'
+  mongo:
+    image: 'mongo:latest'
+    container_name: 'mongo'
+    ports:
+      - '27100:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: myuser
+      MONGO_INITDB_ROOT_PASSWORD: mypassword
